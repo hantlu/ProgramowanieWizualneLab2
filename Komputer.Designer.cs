@@ -156,6 +156,7 @@
             this.anuluj.TabIndex = 12;
             this.anuluj.Text = "ANULUJ";
             this.anuluj.UseVisualStyleBackColor = true;
+            this.anuluj.Click += new System.EventHandler(this.anuluj_Click);
             // 
             // Komputer
             // 

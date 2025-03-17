@@ -18,13 +18,18 @@ namespace ProgramowanieWizualneLab2
         double cena_proc_suma = 0;
         double cena_dysk_suma = 0;
         double razem;
+        private Form1 form1;
         //double cena_RAZEM = 0;
-        public Komputer()
+
+        public delegate void PrzekazWartoscHandler(double liczba);
+        public event PrzekazWartoscHandler PrzekazWartosc;
+        public Komputer(Form1 form1)
         {
             InitializeComponent();
             comboBox1.Items.Add(p1);
             comboBox1.Items.Add(p2);
             comboBox1.Items.Add(p3);
+            this.form1 = form1;
         }
 
         public void Sumowanie(double procesor, double dysk)
@@ -46,7 +51,7 @@ namespace ProgramowanieWizualneLab2
                 Procesor wybranyProcesor = (Procesor)comboBox1.SelectedItem;
                 cena_proc.Text = $"Cena: {wybranyProcesor.Cena:C}";
                 cena_proc_suma = wybranyProcesor.Cena;
-                Sumowanie(cena_proc_suma, cena_dysk_suma);
+                Sumowanie(cena_proc_suma, cena_dysk_suma); 
             }
             
         }
@@ -84,7 +89,16 @@ namespace ProgramowanieWizualneLab2
 
         private void okej_Click(object sender, EventArgs e)
         {
+            //form1.Text = razem.ToString();
+            //this.Close();
 
+            PrzekazWartosc?.Invoke(razem);
+            this.Close();
+        }
+
+        private void anuluj_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 
